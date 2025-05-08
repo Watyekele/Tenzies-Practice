@@ -27,6 +27,10 @@ export default function Box() {
     <DiceComp key={Die.id} value={Die.value} status={Die.isHeld} />
   ));
 
+  function handleClick() {
+    setDice(allNewDice());
+  }
+
   return (
     <div
       className="border border-8 border-white bg-white
@@ -39,15 +43,16 @@ export default function Box() {
       >
         <Header />
 
-        <section className="grid grid-cols-5 grid-rows-2 ">
+        <section className="grid grid-cols-5 grid-rows-2 gap-4 ">
           {diceElements}
         </section>
         <button
+          onClick={handleClick}
           className="border 
-        border-none mb-2 px-2 rounded-sm bg-blue-300 
-        shadow-xl/50 cursor-pointer hover:opacity-50"
+        border-none mb-2 px-2 rounded-sm bg-blue-200 
+        shadow-[2px_3px_4px_rgba(0,0,0,0.5)] font-semibold cursor-pointer hover:opacity-50"
         >
-          Roll
+          Roll Dice
         </button>
       </div>
     </div>
