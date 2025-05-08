@@ -1,10 +1,13 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import DiceComp from "./DiceComp";
 import Header from "./Header";
 
 export default function Box() {
+  const [Dice, setDice] = useState(null);
   return (
     <div
-      className="border border-8 border-white
+      className="border border-8 border-white bg-white
     w-80 h-80"
     >
       <div
@@ -15,8 +18,12 @@ export default function Box() {
         <Header />
 
         <DiceComp />
-        <button className="border border-white mb-2 px-2 rounded-sm">
-          roll
+        <button
+          className="border 
+        border-none mb-2 px-2 rounded-sm bg-blue-300 
+        shadow-xl/50 cursor-pointer hover:opacity-50"
+        >
+          Roll
         </button>
       </div>
     </div>
