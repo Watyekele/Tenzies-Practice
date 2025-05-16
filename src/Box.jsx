@@ -4,6 +4,8 @@ import DiceComp from "./DiceComp";
 import Header from "./Header";
 
 export default function Box() {
+  const [Dice, setDice] = useState(allNewDice());
+
   function generateDice(id) {
     return {
       id: id,
@@ -21,23 +23,29 @@ export default function Box() {
     return Dice;
   }
 
-  const [Dice, setDice] = useState(allNewDice());
+  const gameWon =
+    Dice.every((Die) => Die.isHeld) &&
+    Dice.every((Die) => Die.value === Dice[0].value);
 
   function Hold(id) {
-    console.log("Holding Dice with id:", id);
-
     setDice((prevState) =>
       prevState.map((Die) =>
         Die.id === id ? { ...Die, isHeld: !Die.isHeld } : Die
       )
     );
   }
-  function rollSingleDie() {
-    setDice((prevState) =>
-      prevState.map((Die) =>
-        Die.isHeld ? Die : { ...Die, value: Math.floor(Math.random() * 6 + 1) }
-      )
-    );
+  function rollDice() {
+    if (!gameWon) {
+      setDice((prevState) =>
+        prevState.map((Die) =>
+          Die.isHeld
+            ? Die
+            : { ...Die, value: Math.floor(Math.random() * 6 + 1) }
+        )
+      );
+    } else {
+      setDice(allNewDice());
+    }
   }
 
   const diceElements = Dice.map((Die, id) => (
@@ -49,10 +57,6 @@ export default function Box() {
       hold={Hold}
     />
   ));
-
-  // function handleClick() {
-  //   setDice(allNewDice());
-  // }
 
   return (
     <div
@@ -70,11 +74,12 @@ export default function Box() {
             {diceElements}
           </section>
           <button
-            className="w-20
+            onClick={rollDice}
+            className="min-w-20
         border-none  px-2 rounded-sm bg-blue-200 
         shadow-[2px_3px_4px_rgba(0,0,0,0.5)] font-semibold cursor-pointer hover:opacity-50"
           >
-            Roll
+            {gameWon ? <p>New Game</p> : <p> Roll</p>}
           </button>
         </div>
       </div>
