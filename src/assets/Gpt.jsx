@@ -4,24 +4,25 @@ export default function Gpt() {
   const [count, setcount] = useState(0);
 
   const [liked, setLiked] = useState(true);
+  const [steps, setSteps] = useState(0);
 
-  function handleClick() {
-    setLiked((prevState) => !prevState);
+  function Increased() {
+    setSteps((prevSteps) => prevSteps + 1);
   }
-
-  function Messageshown() {
-    if (liked) {
-      return <p>You liked this!</p>;
-    } else {
-      return <p>Oooh Really??</p>;
-    }
+  function Decreased() {
+    setSteps((prevSteps) => Math.max(prevSteps - 1, 0));
+  }
+  function Reset() {
+    setSteps(0);
   }
 
   return (
     <div>
-      {Messageshown()}
-
-      <button onClick={handleClick}>{liked ? "Like 👍" : "Unlike 👎"} </button>
+      <button onClick={Increased}>Increase</button>
+      <p>You walked {steps} steps</p>
+      <button onClick={Decreased}>Decrease</button>
+      <br />
+      <button onClick={Reset}>Re-set</button>
     </div>
   );
 }
