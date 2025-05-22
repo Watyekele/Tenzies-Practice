@@ -2,21 +2,26 @@ import { useState } from "react";
 
 export default function Gpt() {
   const [count, setcount] = useState(0);
-  function Increase() {
-    setcount(count + 1);
+
+  const [liked, setLiked] = useState(true);
+
+  function handleClick() {
+    setLiked((prevState) => !prevState);
   }
 
-  function Decrease() {
-    setcount((prevCount) => Math.max(prevCount - 1, 0));
+  function Messageshown() {
+    if (liked) {
+      return <p>You liked this!</p>;
+    } else {
+      return <p>Oooh Really??</p>;
+    }
   }
 
   return (
     <div>
-      <button onClick={Increase}>Increase</button>
+      {Messageshown()}
 
-      {count}
-      <br />
-      <button onClick={Decrease}>Decrease</button>
+      <button onClick={handleClick}>{liked ? "Like 👍" : "Unlike 👎"} </button>
     </div>
   );
 }
