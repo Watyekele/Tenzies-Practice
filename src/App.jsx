@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Box from "./Box";
+import Gpt from "./assets/Gpt";
 function App() {
   return (
     <div
@@ -8,6 +9,7 @@ function App() {
      min-h-screen"
     >
       <Box />
+      <Gpt />
     </div>
   );
 }
