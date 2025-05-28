@@ -1,28 +1,37 @@
 import { useState } from "react";
 
 export default function Gpt() {
-  const [count, setcount] = useState(0);
+  const [name, setName] = useState("");
+  const [greetings, setGreetings] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [liked, setLiked] = useState(true);
-  const [steps, setSteps] = useState(0);
-
-  function Increased() {
-    setSteps((prevSteps) => prevSteps + 1);
-  }
-  function Decreased() {
-    setSteps((prevSteps) => Math.max(prevSteps - 1, 0));
-  }
-  function Reset() {
-    setSteps(0);
+  function handleClick() {
+    if (name.trim() === "") {
+      setError("Please enter name");
+    } else {
+      setError(null);
+      setGreetings(true);
+    }
   }
 
   return (
     <div>
-      <button onClick={Increased}>Increase</button>
-      <p>You walked {steps} steps</p>
-      <button onClick={Decreased}>Decrease</button>
-      <br />
-      <button onClick={Reset}>Re-set</button>
+      {!greetings ? (
+        <div>
+          <input
+            type="text"
+            className="text border-2 border-black w-20"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button onClick={handleClick} type="submit">
+            Greet Me
+          </button>
+        </div>
+      ) : (
+        <p>Your name is {name}</p>
+      )}
+      {error && <p>{error}</p>}
     </div>
   );
 }
